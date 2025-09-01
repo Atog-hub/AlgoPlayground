@@ -4,6 +4,7 @@ import random
 from button import Button
 from config import back_btn
 import bubblesort as bs
+import binarysearch as bin_search
 
 pg.init()
 
@@ -62,7 +63,6 @@ values = []
 
 
 #Linear search variable and text
-# Add these globals near your constants
 linear_num_bars = 50
 linear_scroll_offset = 0
 linear_search_running = False
@@ -145,6 +145,8 @@ selection_highlight_indices = []
 selection_scroll_offset = 0
 
 selection_sort_text = [
+    "Selection Sort Pseudocode:",
+    "",
     "for i from 0 to n - 1:",
     "    min_index = i",
     "    for j from i+1 to n:",
@@ -168,6 +170,8 @@ merge_scroll_offset = 0
 
 
 merge_sort_text = [
+    "Merge Sort Pseudocode:",
+    "",
     "function mergeSort(arr):",
     "    if length of arr <= 1:",
     "        return arr",
@@ -217,8 +221,7 @@ def show_welcome_screen():
     SCREEN.fill(WHITE)
     pg.display.update()
 
-def handle_scroll(event, text_lines, top_offset):
-    global scroll_offset
+def handle_scroll(event, scroll_offset, text_lines, top_offset):
     if event.type == pg.MOUSEBUTTONDOWN:
         if event.button == 4:
             scroll_offset = max(scroll_offset - 20,0)
@@ -674,7 +677,7 @@ def draw_merge_sort():
 
 
 
-#binary search variables and text
+
 
 def handle_back_button_events(event):
     global current_screen, bubble_sort_running
@@ -729,10 +732,7 @@ def linear_search():
 def binary_search():
     global current_screen
     current_screen = "binary search"
-    SCREEN.fill(WHITE)
-    title_surface = title_font.render("Binary Search", True, TITLE_TEXT_COLOR)
-    SCREEN.blit(title_surface, title_surface.get_rect(center=(WIDTH // 2, 60)))
-    pg.display.update()
+    bin_search.start_binary_search()
 
 def quit():
     pg.quit()
@@ -853,20 +853,23 @@ while running:
 
         # Bubble sort scroll
         if current_screen == "bubble sort":
-            bs.scroll_offset = handle_scroll(event,bs.bubble_sort_text, 330)
+            bs.scroll_offset = handle_scroll(event,bs.scroll_offset,bs.bubble_sort_text, 330)
 
         # Insertion sort scroll
         elif current_screen == "insertion sort":
-            insertion_scroll_offset = handle_scroll(event, insertion_sort_text, 250)
+            insertion_scroll_offset = handle_scroll(event, insertion_scroll_offset,insertion_sort_text, 250)
 
         elif current_screen == "selection sort":
-            selection_scroll_offset = handle_scroll(event,selection_sort_text,330)
+            selection_scroll_offset = handle_scroll(event,selection_scroll_offset,selection_sort_text,330)
 
         elif current_screen == "merge sort":
-            merge_scroll_offset = handle_scroll(event, merge_sort_text, 330)
+            merge_scroll_offset = handle_scroll(event, merge_scroll_offset,merge_sort_text, 330)
 
         elif current_screen == "linear search":
-            linear_scroll_offset = handle_scroll(event, linear_search_text, 330)
+            linear_scroll_offset = handle_scroll(event, linear_scroll_offset,linear_search_text, 330)
+
+        elif current_screen == "binary search":
+            bin_search.binary_scroll_offset = handle_scroll(event, bin_search.binary_scroll_offset, bin_search.binary_search_text, 330)
 
     # Screen rendering
     if current_screen == "menu":
@@ -901,6 +904,11 @@ while running:
             if linear_search_running:
                 update_linear_search()
             draw_linear_search()
+
+        elif current_screen == "binary search":
+            if bin_search.binary_search_running:
+                bin_search.update_binary_search()
+            bin_search.draw_binary_search()
 
         else:
             # Placeholder for other sorting screens
