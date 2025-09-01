@@ -267,6 +267,7 @@ def update_linear_search():
             linear_search_running = False
 
 def draw_linear_search():
+    global linear_scroll_offset
     global linear_bar_width  # so we can calculate it dynamically
 
     TITLE_HEIGHT = 60
@@ -322,9 +323,10 @@ def draw_linear_search():
 
     line_height = 28
     for idx, line in enumerate(linear_search_text):
-        y = idx * line_height
-        rendered = font.render(line, True, (0, 0, 0))
-        pseudo_surface.blit(rendered, (20, y))
+        y = idx * line_height - linear_scroll_offset
+        if -line_height < y < PSEUDO_AREA_HEIGHT:
+            rendered = font.render(line, True, (0, 0, 0))
+            pseudo_surface.blit(rendered, (20, y))
 
     SCREEN.blit(pseudo_surface, (0, PSEUDO_START_Y))
 
