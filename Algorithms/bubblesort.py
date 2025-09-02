@@ -9,7 +9,6 @@ bubble_j = 0
 bubble_sort_running = False
 scroll_offset = 0
 
-
 step = (max_height - min_height) // NUM_BARS
 values = [min_height + (i * step) for i in range(NUM_BARS)]
 random.shuffle(values)
