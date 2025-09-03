@@ -21,7 +21,7 @@ It helps you understand sorting and searching algorithms through **animations, p
 - Pygame 2.1+
 
 # Installation
-1. Clone the repository:
+## Clone the repository:
    ```bash
    git clone https://github.com/Atog-hub/AlgoPlayground.git
    cd AlgoPlayground
@@ -36,6 +36,7 @@ pip install pygame
 ```bash
 python main.py
 ```
+
 
 
 
