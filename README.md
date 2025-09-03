@@ -25,13 +25,12 @@ It helps you understand sorting and searching algorithms through **animations, p
    ```bash
    git clone https://github.com/Atog-hub/AlgoPlayground.git
    cd AlgoPlayground
-
+   ```
+   
 # Install dependencies
 ```bash
 pip install pygame
-
-# Run the application
-python main.py
+```
 
 
 
